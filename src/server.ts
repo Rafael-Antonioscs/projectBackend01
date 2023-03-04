@@ -1,14 +1,47 @@
-import express from 'express'
-import { consumers } from 'stream';
+import express, { response } from 'express';
+import { Database } from './database';
 
-const app = express()
+const server = express()
 
-const port = 3000
+const port = 3333
 
-app.get('/', (request, response ) => {
-  response.json({msg:"Fim da Aula!!!"})
+server.use(express.json());
+
+//const dados: string[] = [];
+
+const database = new Database();
+
+server.get('/', (request, response) => {
+const user = database.select('user')
+response.json(user)
+//response.json(dados);
+// response.send("Hello World!")
 });
 
-app.listen(port, () => {
-  console.log('Server Running!! 🚀');
+//Parâmetro vindo do CLIENTE - REQUEST
+//Parâmetro indo ao CLIENTE - RESPONSE
+
+
+
+server.post('/', (request, response) => {
+  const { name, email } = request.body;
+
+const user = {
+  id: '1',
+  name: name,
+  email,
+}
+
+database.insert('user', user);
+
+  response.status(201).send();
+
+  //response.json({msg: "SERVIDOR OK!"})
+});
+
+
+
+
+server.listen(port, () => {
+  console.log(`Server Running - end: http://localhost:${port}`)
 });
