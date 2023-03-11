@@ -10,5 +10,5 @@ content-type: application/json
 {
   "name": "FEMA",
   "curso": "Tecnico em Informatica",
-  "email": "fema@fema.com",
+  "email": "fema@fema.com"
 }
